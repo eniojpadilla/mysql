@@ -8,20 +8,36 @@ grade VARCHAR(2),
 reg_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE mysql.Games (
-id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-agegroup_id INT(8) NOT NULL,
-starttime timestamp,
-location VARCHAR(50),
-reg_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (agegroup_id)
-    REFERENCES mysql.agegroups(id)
-);
-
-CREATE TABLE mysql.agegroups (
+CREATE TABLE mysql.agegroup (
 id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 agegroup VARCHAR(30) NOT NULL,
 starttime timestamp,
 location VARCHAR(50),
 reg_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+CREATE TABLE mysql.Game (
+id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+agegroup_id INT(8) NOT NULL,
+starttime timestamp,
+location VARCHAR(50),
+reg_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (agegroup_id)
+    REFERENCES mysql.agegroup(id)
+);
+
+CREATE TABLE mysql.Assignment (
+id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+game_id INT(8) NOT NULL,
+referee_id INT(8) NOT NULL,
+ar1_id INT(8) NOT NULL,
+ar2_id INT(8) NOT NULL,
+reg_date  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (referee_id)
+    REFERENCES mysql.Referee(id),
+    FOREIGN KEY (ar1_id)
+    REFERENCES mysql.Referee(id),
+    FOREIGN KEY (ar2_id)
+    REFERENCES mysql.Referee(id)
+);
+
